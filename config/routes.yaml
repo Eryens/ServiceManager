@@ -2,3 +2,6 @@ index:
     path: /
     controller: App\Controller\ServiceController::index
 
+liste:
+    path: /liste
+    controller: App\Controller\ServiceController::list

@@ -1,22 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ServiceController!{% endblock %}
+{% block title %}Aptitudes Service Manager{% endblock %}
 
 {% block body %}
 
-    <div class="container p-3 my-3 border">
-        <h1>My First Bootstrap Page</h1>
-        <p>This container has a border and some extra padding and margins.</p>
-    </div>
+    <main role="main">
 
-    <div class="container p-3 my-3 bg-dark text-white">
-        <h1>My First Bootstrap Page</h1>
-        <p>This container has a dark background color and a white text, and some extra padding and margins.</p>
-    </div>
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <div class="container">
+                <h3 class="display-5">Liste des services ayant besoin d'attention</h3>
+                <table class="table table-striped">
 
-    <div class="container p-3 my-3 bg-primary text-white">
-        <h1>My First Bootstrap Page</h1>
-        <p>This container has a blue background color and a white text, and some extra padding and margins.</p>
-    </div>
+                    <!--Table head-->
+                    <thead>
+                    <tr>
+                        <th style="width: 33.33%">Entreprise</th>
+                        <th style="width: 33.33%">Service</th>
+                        <th style="width: 22%">Date de dernière réception</th>
+                        <th style="width: 15%">Action</th>
+                        <th style="width: 10%">Etat</th>
+                    </tr>
+                    </thead>
+                    <!--Table head-->
+
+                    <!--Table body-->
+                    <tbody>
+                    <tr>
+                        <th scope="row">Bleu Agro</th>
+                        <td>EBP_Web_Export</td>
+                        <td>12/06/2020 20h40</td>
+                        <td><a href="#" class="btn btn-light">Détails</a></td>
+                        <td><i class="fas fa-circle warning"></i></td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Bleu Agro</th>
+                        <td>EBP_Web_Export</td>
+                        <td>12/06/2020 20h40</td>
+                        <td><a href="#" class="btn btn-light">Détails</a></td>
+                        <td><i class="fas fa-circle warning"></i></td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Bleu Agro</th>
+                        <td>EBP_Web_Export</td>
+                        <td>12/06/2020 20h40</td>
+                        <td><a href="#" class="btn btn-light">Détails</a></td>
+                        <td><i class="fas fa-circle danger"></i></td>
+                    </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="container">
+
+                <h3>Liste des entreprises</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th style="width: 25%">Entreprise</th>
+                        <th style="width: 25%">Nombre de services</th>
+                        <th style="width: 20%">Date de dernière réception</th>
+                        <th style="width: 15%">Action</th>
+                        <th style="width: 10%">Etat</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Bleu Agro</td>
+                        <td>4 services</td>
+                        <td>12/12/2008</td>
+                        <td><a href="#" class="btn btn-secondary"><i class="fas fa-list-ul"></i> Services</a></td>
+                        <td><i class="fas fa-circle okay"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Nordways</td>
+                        <td>45 services</td>
+                        <td>12/12/2008</td>
+                        <td><a href="#" class="btn btn-secondary"><i class="fas fa-list-ul"></i> Services</a></td>
+                        <td><i class="fas fa-circle okay"></i></td>
+                    </tr>
+                    <tr>
+                        <td>SFE</td>
+                        <td>8 services</td>
+                        <td>12/12/2008</td>
+                        <td><a href="#" class="btn btn-secondary"><i class="fas fa-list-ul"></i> Services</a></td>
+                        <td><i class="fas fa-circle okay"></i>
+                    </tr>
+                    <tr>
+                        <td>LD Distribution</td>
+                        <td>3 services</td>
+                        <td>12/12/2008</td>
+                        <td><a href="#" class="btn btn-secondary"><i class="fas fa-list-ul"></i> Services</a></td>
+                        <td><i class="fas fa-circle okay"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            <hr>
+        </div> <!-- /container -->
+
+    </main>
+
+    <footer class="container">
+        <p>&copy; Aptitudes Méditerranée {{ "now"|date("Y") }}</p>
+    </footer>
+
 
 {% endblock %}

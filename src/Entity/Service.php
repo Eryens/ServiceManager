@@ -55,6 +55,11 @@ class Service
         }
     }
 
+    public function __construct()
+    {
+        $this->updatedTimestamps();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

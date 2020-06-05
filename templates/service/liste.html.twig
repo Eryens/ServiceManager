@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des services{% endblock %}
+
+{% block body %}
+
+    <h4>Liste des services</h4>
+
+    <ul>
+        {% for service in services %}
+            <li>{{ service.entreprise.nom }} - {{ service.nom }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
