@@ -4,12 +4,23 @@
 
 {% block body %}
 
-    <h4>Liste des services</h4>
+    <div class="container">
+        <h4>Liste des services</h4>
+        <ul>
+            {% for service in services %}
+                <li>{{ service.entreprise.nom }} - {{ service.nom }} - {{ service.getStatus }}</li>
+            {% endfor %}
+        </ul>
 
-    <ul>
-        {% for service in services %}
-            <li>{{ service.entreprise.nom }} - {{ service.nom }}</li>
-        {% endfor %}
-    </ul>
+        <h4>Servies danger ou attention</h4>
+        <ul>
+            {% for service in warningOrDanger %}
+                <li>{{ service.entreprise.nom }} - {{ service.nom }} - {{ service.getStatus }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+
 
 {% endblock %}

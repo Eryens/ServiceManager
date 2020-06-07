@@ -124,4 +124,20 @@ class Service
 
         return $this;
     }
+
+    public function getStatus()
+    {
+        $now = new \DateTime('now');
+        $threeDaysAgo = new \DateTime('-3 days');
+        $aWeekAgo = new \DateTime('-7 days');
+        if ($this->updatedate < $aWeekAgo)
+        {
+            return 'danger';
+        }
+        if ($this->updatedate < $threeDaysAgo )
+        {
+            return 'warning';
+        }
+        return 'okay';
+    }
 }

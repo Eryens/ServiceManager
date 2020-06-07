@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="frz">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -9,7 +9,9 @@
     </head>
     <body>
         {% include 'navbar.html.twig' %}
-        {% block body %}{% endblock %}
+        <main role="main">
+            {% block body %}{% endblock %}
+        </main>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}

@@ -19,6 +19,23 @@ class ServiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Service::class);
     }
 
+
+    /**
+     * @return Service[]
+     */
+    public function findWarningOrDanger()
+    {
+        $all = $this->findAll();
+        foreach ($all as $service)
+        {
+            if ($service->getStatus() != 'okay')
+            {
+                $toReturn[] = $service;
+            }
+        }
+        return $toReturn;
+    }
+
     // /**
     //  * @return Service[] Returns an array of Service objects
     //  */
