@@ -3,33 +3,7 @@
 // customize some Bootstrap variables
 $primary: darken(#428bca, 20%);
 
-.logo {
-  max-height: 50px;
-}
-
-body {
-  padding-top: 3.5rem;
-  //background-image: url('http://www.widewallpapershd.info/file/20996/1920x1080/crop/calanque-de-sormiou-marseille-france.jpg')
-}
-
-.warning {
-  color:darkorange;
-  font-size: 2rem;
-}
-
-.danger {
-  color:red;
-  font-size: 2rem;
-}
-
-.okay {
-  color:green;
-  font-size: 2rem;
-}
-
-main {
-  margin-top:80px;
-}
+@import "site.scss";
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";

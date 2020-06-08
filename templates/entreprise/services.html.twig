@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Services {{ entreprise.nom }}{% endblock %}
+
+{% block body %}
+
+    <div class="container main-container">
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Liste des services pour {{ entreprise.nom }}</h3>
+            </div>
+            <div class="col-md-6 text-right">
+                <a href="{{ url('index') }}" class="btn btn-light">Retour</a>
+            </div>
+        </div>
+
+
+        <table class="table table-striped">
+
+            <thead>
+            <tr>
+                <th style="width: 33.33%">Entreprise</th>
+                <th style="width: 33.33%">Service</th>
+                <th style="width: 22%">Date de dernière réception</th>
+                <th style="width: 15%">Action</th>
+                <th style="width: 10%">Etat</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for service in services %}
+                <tr>
+                    <th scope="row">{{ service.entreprise.nom }}</th>
+                    <td>{{ service.nom }}</td>
+                    <td>{{ service.updatedate|date("m/d/Y \\a H\\hi") }}</td>
+                    <td>
+                        <a href="{{ url('details', {'entreprise': service.entreprise.nom|replace({' ': '-'}),
+                            'name': service.nom|replace({' ': '-'})}) }}" class="btn btn-light">Détails
+                        </a>
+                    </td>
+                    {% if service.getStatus == 'warning' %}
+                        <td><i class="fas fa-circle warning"></i></td>
+                    {% elseif service.getStatus == 'danger' %}
+                        <td><i class="fas fa-circle danger"></i></td>
+                    {% elseif service.getStatus == 'okay' %}
+                        <td><i class="fas fa-circle okay"></i></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+    </div> <!-- /container -->
+{% endblock %}

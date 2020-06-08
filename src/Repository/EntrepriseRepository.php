@@ -19,6 +19,16 @@ class EntrepriseRepository extends ServiceEntityRepository
         parent::__construct($registry, Entreprise::class);
     }
 
+
+    public function searchOneCaseInsensitive($name)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('upper(a.nom) = upper(:name)')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     // /**
     //  * @return Entreprise[] Returns an array of Entreprise objects
     //  */

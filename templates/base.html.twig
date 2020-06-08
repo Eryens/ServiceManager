@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="frz">
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -15,5 +15,8 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        <footer class="container">
+            <p>&copy; Aptitudes Méditerranée {{ "now"|date("Y") }}</p>
+        </footer>
     </body>
 </html>

@@ -15,7 +15,8 @@ Encore
     //.setManifestKeyPrefix('build/')
 
     .copyFiles({
-        from: './asset/images'
+        from: './assets/images',
+        pattern: /\.(png|jpg|jpeg)$/
     })
 
     /*

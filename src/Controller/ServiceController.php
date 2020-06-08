@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Entreprise;
 use App\Entity\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,11 +16,35 @@ class ServiceController extends AbstractController
     {
         $doctrine = $this->getDoctrine();
         $entreprises = $doctrine->getRepository(Entreprise::class)->findAll();
+        $warningOrDanger = $doctrine->getRepository(Service::class)->findWarningOrDanger();
 
         return $this->render('service/index.html.twig', [
             'controller_name' => 'ServiceController',
-            'entreprises' => $entreprises
+            'entreprises' => $entreprises,
+            'warningOrDanger' => $warningOrDanger,
         ]);
+    }
+
+    public function details($entreprise, $name)
+    {
+        $nomEntreprise = str_replace('-', ' ', $entreprise);
+        $nomService = str_replace('-', ' ', $name);
+
+        $entrepriseObj = $this->getDoctrine()->getRepository(Entreprise::class)
+            ->searchOneCaseInsensitive($nomEntreprise);
+
+        if (!$entrepriseObj) {
+            throw $this->createNotFoundException("L'entreprise n'existe pas.");
+        }
+
+        $service = $this->getDoctrine()->getRepository(Service::class)
+            ->findOneBy(array('nom' => $nomService, 'entreprise' => $entrepriseObj));
+
+        if (!$service) {
+            throw $this->createNotFoundException("Le service demandé n'existe pas");
+        }
+
+        return $this->render('service/details.html.twig');
     }
 
     /**
@@ -27,8 +52,9 @@ class ServiceController extends AbstractController
      */
     public function liste()
     {
-        $services = $this->getDoctrine()->getRepository(Service::class)->findAll();
-        $warningOrDanger = $this->getDoctrine()->getRepository(Service::class)->findWarningOrDanger();
+        $repo = $this->getDoctrine()->getRepository(Service::class);
+        $services = $repo->findAll();
+        $warningOrDanger = $repo->findWarningOrDanger();
 
         return $this->render('service/liste.html.twig', [
            'services' => $services,

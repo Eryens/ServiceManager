@@ -6,6 +6,7 @@ use App\Repository\EntrepriseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity(repositoryClass=EntrepriseRepository::class)
@@ -57,6 +58,54 @@ class Entreprise
     public function getServices(): Collection
     {
         return $this->services;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfServices()
+    {
+        return $this->services->count();
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateLastReception()
+    {
+        $services = $this->services;
+        $date = null;
+        foreach($services as $service)
+        {
+            $updateDate = $service->getUpdatedate();
+            if ($date == null || $date > $updateDate)
+            {
+                $date = $updateDate;
+            }
+        }
+        return $date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        $status = 'okay';
+        $services = $this->services;
+        foreach($services as $service)
+        {
+            if($service->getStatus() == 'warning' && $status == 'okay')
+            {
+                $status = 'warning';
+            }
+            elseif ($service->getStatus() == 'danger')
+            {
+                $status = 'danger';
+            }
+        }
+        return $status;
+
     }
 
     public function addService(Service $service): self

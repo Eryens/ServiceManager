@@ -5,3 +5,11 @@ index:
 liste:
     path: /liste
     controller: App\Controller\ServiceController::list
+
+details:
+    path: /{entreprise}/{name}/details
+    controller: App\Controller\ServiceController:details
+
+services:
+    path: /entreprise/{entreprise}
+    controller: App\Controller\EntrepriseController::services

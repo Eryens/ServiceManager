@@ -4,14 +4,11 @@
 
 {% block body %}
 
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
             <h3 class="display-5">Liste des services ayant besoin d'attention</h3>
             <table class="table table-striped">
 
-                <!--Table head-->
                 <thead>
                 <tr>
                     <th style="width: 33.33%">Entreprise</th>
@@ -21,36 +18,27 @@
                     <th style="width: 10%">Etat</th>
                 </tr>
                 </thead>
-                <!--Table head-->
 
-                <!--Table body-->
                 <tbody>
-                <tr>
-                    <th scope="row">Bleu Agro</th>
-                    <td>EBP_Web_Export</td>
-                    <td>12/06/2020 20h40</td>
-                    <td><a href="#" class="btn btn-light">Détails</a></td>
-                    <td><i class="fas fa-circle warning"></i></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">Bleu Agro</th>
-                    <td>EBP_Web_Export</td>
-                    <td>12/06/2020 20h40</td>
-                    <td><a href="#" class="btn btn-light">Détails</a></td>
-                    <td><i class="fas fa-circle warning"></i></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">Bleu Agro</th>
-                    <td>EBP_Web_Export</td>
-                    <td>12/06/2020 20h40</td>
-                    <td><a href="#" class="btn btn-light">Détails</a></td>
-                    <td><i class="fas fa-circle danger"></i></td>
-                </tr>
-
+                {% for service in warningOrDanger %}
+                    <tr>
+                        <th scope="row">{{ service.entreprise.nom }}</th>
+                        <td>{{ service.nom }}</td>
+                        <td>{{ service.updatedate|date("m/d/Y \\a H\\hi") }}</td>
+                        <td>
+                            <a href="{{ url('details', {'entreprise': service.entreprise.nom|replace({' ': '-'}),
+                                'name': service.nom|replace({' ': '-'})}) }}" class="btn btn-light">Détails
+                            </a>
+                        </td>
+                        {% if service.getStatus == 'warning' %}
+                            <td><i class="fas fa-circle warning"></i></td>
+                        {% endif %}
+                        {% if service.getStatus == 'danger' %}
+                            <td><i class="fas fa-circle danger"></i></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
                 </tbody>
-
             </table>
         </div>
     </div>
@@ -70,43 +58,40 @@
                 </thead>
                 <tbody>
 
+                {% for entreprise in entreprises %}
+
                 <tr>
-                    <td>Bleu Agro</td>
-                    <td>4 services</td>
-                    <td>12/12/2008</td>
-                    <td><a href="#" class="btn btn-secondary"><i class="fas fa-list-ul"></i> Services</a></td>
-                    <td><i class="fas fa-circle okay"></i></td>
+                    <td>{{ entreprise.nom }}</td>
+                    <td>
+                        {{ entreprise.getNumberOfServices }}
+                        {% if entreprise.getNumberOfServices > 1 %}
+                            services
+                        {% else %}
+                            service
+                        {% endif %}
+                    </td>
+                    <td>{{ entreprise.getDateLastReception|date("m/d/Y") }}</td>
+                    <td>
+                        <a href="{{ url('services', {'entreprise': entreprise.nom|replace({' ': '-'})})}}" class="btn btn-secondary">
+                            <i class="fas fa-list-ul"></i>
+                            Services
+                        </a>
+                    </td>
+                    <td>
+                        {% if entreprise.getStatus == 'warning' %}
+                            <i class="fas fa-circle warning"></i>
+                        {% elseif entreprise.getStatus == 'danger' %}
+                            <i class="fas fa-circle danger"></i>
+                        {% else %}
+                            <i class="fas fa-circle okay"></i>
+                        {% endif %}
+                    </td>
                 </tr>
-                <tr>
-                    <td>Nordways</td>
-                    <td>45 services</td>
-                    <td>12/12/2008</td>
-                    <td><a href="#" class="btn btn-secondary"><i class="fas fa-list-ul"></i> Services</a></td>
-                    <td><i class="fas fa-circle okay"></i></td>
-                </tr>
-                <tr>
-                    <td>SFE</td>
-                    <td>8 services</td>
-                    <td>12/12/2008</td>
-                    <td><a href="#" class="btn btn-secondary"><i class="fas fa-list-ul"></i> Services</a></td>
-                    <td><i class="fas fa-circle okay"></i>
-                </tr>
-                <tr>
-                    <td>LD Distribution</td>
-                    <td>3 services</td>
-                    <td>12/12/2008</td>
-                    <td><a href="#" class="btn btn-secondary"><i class="fas fa-list-ul"></i> Services</a></td>
-                    <td><i class="fas fa-circle okay"></i></td>
-                </tr>
+
+                {% endfor %}
                 </tbody>
             </table>
-
         <hr>
     </div> <!-- /container -->
-
-    <footer class="container">
-        <p>&copy; Aptitudes Méditerranée {{ "now"|date("Y") }}</p>
-    </footer>
-
 
 {% endblock %}
