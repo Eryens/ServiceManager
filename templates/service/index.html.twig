@@ -6,40 +6,44 @@
 
     <div class="jumbotron">
         <div class="container">
-            <h3 class="display-5">Liste des services ayant besoin d'attention</h3>
-            <table class="table table-striped">
+            {% if warningOrDanger is not empty  %}
+                <h3 class="display-5">Liste des services ayant besoin d'attention</h3>
+                <table class="table table-striped">
 
-                <thead>
-                <tr>
-                    <th style="width: 33.33%">Entreprise</th>
-                    <th style="width: 33.33%">Service</th>
-                    <th style="width: 22%">Date de dernière réception</th>
-                    <th style="width: 15%">Action</th>
-                    <th style="width: 10%">Etat</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                {% for service in warningOrDanger %}
+                    <thead>
                     <tr>
-                        <th scope="row">{{ service.entreprise.nom }}</th>
-                        <td>{{ service.nom }}</td>
-                        <td>{{ service.updatedate|date("m/d/Y \\a H\\hi") }}</td>
-                        <td>
-                            <a href="{{ url('details', {'entreprise': service.entreprise.nom|replace({' ': '-'}),
-                                'name': service.nom|replace({' ': '-'})}) }}" class="btn btn-light">Détails
-                            </a>
-                        </td>
-                        {% if service.getStatus == 'warning' %}
-                            <td><i class="fas fa-circle warning"></i></td>
-                        {% endif %}
-                        {% if service.getStatus == 'danger' %}
-                            <td><i class="fas fa-circle danger"></i></td>
-                        {% endif %}
+                        <th style="width: 33.33%">Entreprise</th>
+                        <th style="width: 33.33%">Service</th>
+                        <th style="width: 22%">Date de dernière réception</th>
+                        <th style="width: 15%">Action</th>
+                        <th style="width: 10%">Etat</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                    {% for service in warningOrDanger %}
+                        <tr>
+                            <th scope="row">{{ service.entreprise.nom }}</th>
+                            <td>{{ service.nom }}</td>
+                            <td>{{ service.updatedate|date("d/m/Y \\a H\\hi") }}</td>
+                            <td>
+                                <a href="{{ url('details', {'entreprise': service.entreprise.nom|replace({' ': '-'}),
+                                    'name': service.nom|replace({' ': '-'})}) }}" class="btn btn-light">Détails
+                                </a>
+                            </td>
+                            {% if service.getStatus == 'warning' %}
+                                <td><i class="fas fa-circle warning"></i></td>
+                            {% endif %}
+                            {% if service.getStatus == 'danger' %}
+                                <td><i class="fas fa-circle danger"></i></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h3 class="display-5">Aucun service ne semble avoir besoin d'attention</h3>
+            {% endif %}
         </div>
     </div>
 

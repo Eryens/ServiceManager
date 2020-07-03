@@ -26,6 +26,7 @@ class ServiceRepository extends ServiceEntityRepository
     public function findWarningOrDanger()
     {
         $all = $this->findAll();
+        $toReturn = array();
         foreach ($all as $service)
         {
             if ($service->getStatus() != 'okay')

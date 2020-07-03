@@ -33,7 +33,7 @@
                 <tr>
                     <th scope="row">{{ service.entreprise.nom }}</th>
                     <td>{{ service.nom }}</td>
-                    <td>{{ service.updatedate|date("m/d/Y \\a H\\hi") }}</td>
+                    <td>{{ service.updatedate|date("d/m/Y \\à H\\hi") }}</td>
                     <td>
                         <a href="{{ url('details', {'entreprise': service.entreprise.nom|replace({' ': '-'}),
                             'name': service.nom|replace({' ': '-'})}) }}" class="btn btn-light">Détails
