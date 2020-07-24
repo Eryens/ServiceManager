@@ -19,7 +19,6 @@ class ServiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Service::class);
     }
 
-
     /**
      * @return Service[]
      */
@@ -35,6 +34,25 @@ class ServiceRepository extends ServiceEntityRepository
             }
         }
         return $toReturn;
+    }
+
+    /**
+     * @param $service
+     * @return string
+     */
+    public function alreadyExistsInDatabase($service)
+    {
+        return $this->_em->createQuery('
+            SELECT s
+            FROM App\Entity\Service s, App\Entity\Entreprise e
+            WHERE 
+            s.entreprise = e AND
+            s.nom = :nom_service AND 
+            e.nom = :nom_entreprise')
+        ->setParameters([
+            'nom_service' => $service->getNom(),
+            'nom_entreprise' => $service->getEntreprise()->getNom(),
+        ])->getResult();
     }
 
     // /**
