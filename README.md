@@ -1,7 +1,7 @@
 # ServiceManager
 Windows Service Manager
 
-This project is a Website developped in PHP 5.1.
+This project is a Website developped in PHP Symfony 5.1.
 
 It has a built-in API that can recieve messages from windows services. 
 Each message is tracked and stored in the local database. 
